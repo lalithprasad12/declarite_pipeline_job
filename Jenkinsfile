@@ -21,8 +21,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh label: '', script: 'mvn -v'
-                sh label: '', script: 'docker --version
+                sh label: '', script: 'mvn -v'       
+                sh label: '', script: 'docker --version'
                 echo "Build"
                 echo "PATH - $PATH"
                 echo "BUILD_NUMBER - $env.BUILD_NUMBER"
