@@ -7,6 +7,11 @@ pipeline {
       // } 
      //}
     
+    environment {
+        mavenHome = tool 'MVN_HOME'
+        dockerHome = tool 'DOCKER_HOME'
+        PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"        
+    }
     
     
     
@@ -16,7 +21,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                //sh label: '', script: 'mvn -v'
+                sh label: '', script: 'mvn -v'
+                sh label: '', script: 'docker --version
                 echo "Build"
                 echo "PATH - $PATH"
                 echo "BUILD_NUMBER - $env.BUILD_NUMBER"
