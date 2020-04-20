@@ -11,15 +11,10 @@ pipeline {
         mavenHome = tool 'MVN_HOME'
         dockerHome = tool 'DOCKER_HOME'
         PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"        
-    }
-    
-    
-    
-    
-    
+    }  
     
     stages {
-        stage('Build') {
+        stage('CHeckout') {
             steps {
                 sh label: '', script: 'mvn -v'       
                 sh label: '', script: 'docker --version'
@@ -32,17 +27,23 @@ pipeline {
                 echo "BUILD_URL - $env.BUILD_URL"
                 }
             }
+        
+         stage('Compile') {
+            steps {
+                sh label: '', script: 'mvn clean compile'
+                }
+            }
             
         stage('Test') {
             steps {
-                echo "Test"
+                sh label: '', script: 'mvn test'
                 }
             }
             
             
         stage('Integration Test') {
             steps {
-                echo "Integration Test"
+                sh label: '', script: 'mvn failsafe:integration-test failsafe:verify'
                 }
             }    
             
